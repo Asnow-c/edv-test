@@ -1,5 +1,5 @@
 {
-  "name": "@asla/vio",
+  "name": "@test/test",
   "version": "0.1.0",
   "exports": "./main.ts"
 }
