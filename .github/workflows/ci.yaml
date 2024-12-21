@@ -1,0 +1,17 @@
+name: push
+on:
+  push:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - run: pwd
+      - run: ls
+        working-directory: ./.vscode
+      - run: |
+          pwd
+          cd ..
+      - run: pwd
