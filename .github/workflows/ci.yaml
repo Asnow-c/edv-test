@@ -10,10 +10,10 @@ jobs:
         uses: actions/checkout@v4
       - run: |
           {
-            echo 'GLOB<<EOF'
+            echo 'GLOB<<END'
             echo ab
             echo ls
-            echo EOF
+            echo END
           } >> $GITHUB_OUTPUT
         id: aaa
       - run: echo ${{steps.aaa.outputs.GLOB}}
@@ -22,9 +22,9 @@ jobs:
         id: get_files
         run: |
           {
-            echo 'GLOB<<EOF'
+            echo 'GLOB<<END'
             cat pack.server.conf
-            echo EOF
+            echo END
           } >> $GITHUB_OUTPUT
 
       - run: echo ${{steps.get_files.outputs.GLOB}}
