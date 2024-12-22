@@ -6,18 +6,25 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
       - run: |
           {
             echo 'GLOB<<EOF'
             echo ab
-            echo cd
+            echo ls
             echo EOF
           } >> $GITHUB_OUTPUT
         id: aaa
       - run: echo ${{steps.aaa.outputs.GLOB}}
-      - run: ls
-        working-directory: ./.vscode
-      - run: |
-          pwd
-          cd ..
-      - run: pwd
+
+      - name: Get File List
+        id: get_files
+        run: |
+          {
+            echo 'GLOB<<EOF'
+            cat pack.server.conf
+            echo EOF
+          } >> $GITHUB_OUTPUT
+
+      - run: echo ${{steps.get_files.outputs.GLOB}}
