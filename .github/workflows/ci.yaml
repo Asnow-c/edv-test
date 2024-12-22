@@ -23,7 +23,7 @@ jobs:
         run: |
           {
             echo 'GLOB<<END'
-            cat pack.server.conf
+            cat abc.ts
             echo END
           } >> $GITHUB_OUTPUT
 
