@@ -23,7 +23,8 @@ jobs:
         run: |
           {
             echo 'GLOB<<END'
-            cat abc.ts|echo
+            cat abc.ts
+            echo ' '
             echo END
           } >> $GITHUB_OUTPUT
 
