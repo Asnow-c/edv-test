@@ -4,7 +4,9 @@ const url = Deno.env.get("PG_URL")!;
 const op = parserDbUrl(url);
 console.log(op);
 const client = await createPgClient(url);
+console.log("ok");
 
+await client.end()
 async function createPgClient(
   url: string | URL,
 ): Promise<pg.Client> {
