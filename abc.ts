@@ -1,7 +1,8 @@
 //@deno-types="npm:@types/pg"
 import pg from "npm:pg";
 const url = Deno.env.get("PG_URL")!;
-console.log(url);
+const op = parserDbUrl(url);
+console.log(op);
 const client = await createPgClient(url);
 
 async function createPgClient(
