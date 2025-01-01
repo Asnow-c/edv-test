@@ -6,7 +6,6 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    container: denoland/deno
     env:
       POSTGRES_PASSWORD: pg_pwd
     services:
@@ -14,7 +13,8 @@ jobs:
         image: postgres
         env:
           POSTGRES_PASSWORD: ${{env.POSTGRES_PASSWORD}}
-
+        ports:
+          - 5432:5432
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -22,6 +22,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - run: deno run -A abc.ts      
+      - uses: denoland/setup-deno@v2
+      - name: Setup Deno
+        uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2
+      - run: deno run -A abc.ts
         env:
-          PG_URL: pg://postgres:${{env.POSTGRES_PASSWORD}}@postgres:5432/postgres
+          PG_URL: pg://postgres:${{env.POSTGRES_PASSWORD}}@127.0.0.1:5432/postgres
