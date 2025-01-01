@@ -1,31 +1,27 @@
-name: push
+name: CI
 on:
   push:
+    branches:
+      - "*"
 jobs:
   test:
     runs-on: ubuntu-latest
+    container: denoland/deno
+    env:
+      POSTGRES_PASSWORD: pg_pwd
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_PASSWORD: ${{env.POSTGRES_PASSWORD}}
 
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - run: |
-          {
-            echo 'GLOB<<END'
-            echo ab
-            echo ls
-            echo END
-          } >> $GITHUB_OUTPUT
-        id: aaa
-      - run: echo ${{steps.aaa.outputs.GLOB}}
-
-      - name: Get File List
-        id: get_files
-        run: |
-          {
-            echo 'GLOB<<END'
-            cat abc.ts
-            echo ' '
-            echo END
-          } >> $GITHUB_OUTPUT
-
-      - run: echo ${{steps.get_files.outputs.GLOB}}
+      - run: deno run -A abc.ts      
+        env:
+          PG_URL: pg://postgres:${{env.POSTGRES_PASSWORD}}@postgres:5432/postgres'
