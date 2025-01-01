@@ -26,10 +26,7 @@ jobs:
           --health-timeout 5s
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
-      - uses: denoland/setup-deno@v2
-        with:
-          deno-version: v2
+        uses: actions/checkout@v4 
       - run: deno run -A abc.ts
         env:
           PG_URL: pg://${{env.POSTGRES_USER}}:${{env.POSTGRES_PASSWORD}}@postgres:5432/${{env.POSTGRES_DB}}
